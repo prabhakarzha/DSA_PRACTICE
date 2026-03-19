@@ -10,7 +10,7 @@ function firstNonRepeatingCharacter(str) {
   // Second pass: find the first character with count 1
   for (let i = 0; i < str.length; i++) {
     if (count[str[i]] === 1) {
-      return str[i];
+      return i;
     }
   }
 
@@ -18,7 +18,6 @@ function firstNonRepeatingCharacter(str) {
   return null;
 }
 
-// Example usage:
 const inputString = "leetcode";
 const result = firstNonRepeatingCharacter(inputString);
-console.log(result); // Output: "l" (since 'l' is the first non-repeating character)
+console.log(result);

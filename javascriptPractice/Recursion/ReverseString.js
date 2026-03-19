@@ -1,6 +1,6 @@
-let str = "Prabhakar";
 let arr = str.split(""); // Convert string to array (strings are immutable in JS)
 
+let str = "Prabhakar";
 function reverseString(str) {
   let arr = str.split(""); // Convert string to array (strings are immutable in JS)
   let left = 0;
