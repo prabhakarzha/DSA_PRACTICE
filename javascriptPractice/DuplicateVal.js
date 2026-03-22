@@ -18,6 +18,8 @@
 
 // console.log(removeDuplicates(arr)); // Output: [1, 2, 4, 3]
 let arr = [1, 1, 1, 3, 3, 3, 4, 4, 5, 6];
+// let arr = [2, 1, 3, 4, 2, 5, 4, 6, 7, 4];
+// arr.sort();
 
 function DuplicateVal(arr) {
   if (arr.length === 0) return [];

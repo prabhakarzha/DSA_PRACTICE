@@ -4,7 +4,11 @@ function firstNonRepeatingCharacter(str) {
 
   // First pass: count each character's occurrences
   for (const char of str) {
-    count[char] = (count[char] || 0) + 1;
+    if (count[char]) {
+      count[char] = count[char] + 1;
+    } else {
+      count[char] = 1;
+    }
   }
 
   // Second pass: find the first character with count 1
@@ -14,7 +18,6 @@ function firstNonRepeatingCharacter(str) {
     }
   }
 
-  // If no non-repeating character found, return null or a message
   return null;
 }
 
