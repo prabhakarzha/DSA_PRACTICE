@@ -24,3 +24,64 @@ function BuySellStock(prices) {
   return maximumProfit;
 }
 console.log(BuySellStock(prices));
+
+//1. Generate Tokens
+const jwt = require("jsonwebtoken");
+
+const generateAccessToken = (user) => {
+  return jwt.sign(user, "ACCESS_SECRET", { expiresIn: "15m" });
+};
+
+const generateRefreshToken = (user) => {
+  return jwt.sign(user, "REFRESH_SECRET", { expiresIn: "7d" });
+};
+
+// 2. Login API
+app.post("/login", async (req, res) => {
+  const user = { id: 1, email: req.body.email }; // validate properly
+
+  const accessToken = generateAccessToken(user);
+  const refreshToken = generateRefreshToken(user);
+
+  // Store refresh token (DB or Redis recommended)
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "Strict",
+  });
+
+  res.json({ accessToken });
+});
+
+//3. Middleware to Protect Routes
+const authenticate = (req, res, next) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
+
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, "ACCESS_SECRET", (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
+//4. Refresh Token API
+
+app.post("/refresh", (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) return res.sendStatus(401);
+
+  jwt.verify(refreshToken, "REFRESH_SECRET", (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    const newAccessToken = generateAccessToken({
+      id: user.id,
+      email: user.email,
+    });
+
+    res.json({ accessToken: newAccessToken });
+  });
+});
