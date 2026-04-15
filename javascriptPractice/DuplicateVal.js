@@ -1,40 +1,40 @@
-// // 4. Remove Duplicates from Sorted Array (Easy)
-// let arr = [1, 1, 2, 4, 3, 4, 2, 3, 1];
+//Remove  duplicate from sorted array leetcode sol
 
-// function removeDuplicates(arr) {
-//   let uniqueArr = [];
-//   let seen = {}; // Hash map to track seen values
+//using Two Pointer
+var removeDuplicates = function (nums) {
+  let k = 1; //unique element
 
-//   for (let i = 0; i < arr.length; i++) {
-//     if (!seen[arr[i]]) {
-//       // If arr[i] is not seen, add it
-//       uniqueArr.push(arr[i]);
-//       seen[arr[i]] = true; // Mark as seen
-//     }
-//   }
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] !== nums[i - 1]) {
+      nums[k] = nums[i];
+      k++;
+    }
+  }
+  return k;
+};
 
-//   return uniqueArr;
-// }
+// Time Complexity - 0(n)
+// space complexity - o(1)
 
-// console.log(removeDuplicates(arr)); // Output: [1, 2, 4, 3]
-let arr = [1, 1, 1, 3, 3, 3, 4, 4, 5, 6];
-// let arr = [2, 1, 3, 4, 2, 5, 4, 6, 7, 4];
-// arr.sort();
+// 4. Remove Duplicates from unSorted Array (Easy) using HashMap
+let arr = [1, 1, 2, 4, 3, 4, 2, 3, 1];
 
-function DuplicateVal(arr) {
-  if (arr.length === 0) return [];
+function removeDuplicates(arr) {
+  let uniqueArr = [];
+  let seen = {}; // Hash map to track seen values
 
-  let uniqueArray = [arr[0]];
-  let i = 0;
-
-  for (let j = 1; j < arr.length; j++) {
-    if (arr[j] !== uniqueArray[i]) {
-      uniqueArray.push(arr[j]);
-      i++;
+  for (let i = 0; i < arr.length; i++) {
+    if (!seen[arr[i]]) {
+      // If arr[i] is not seen, add it
+      uniqueArr.push(arr[i]);
+      seen[arr[i]] = true; // Mark as seen
     }
   }
 
-  return uniqueArray;
+  return uniqueArr;
 }
 
-console.log(DuplicateVal(arr)); // [1, 3, 4, 5, 6]
+console.log(removeDuplicates(arr)); // Output: [1, 2, 4, 3]
+
+// time complexity - 0(n)
+// space complexity -0(n)  extra space use ho raha hai . this i sbest approach for unsorted array
